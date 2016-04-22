@@ -1,19 +1,14 @@
 #include "iostream"
 #include <google/protobuf/text_format.h>
-#include "grSim_Packet.pb.h"
-#include "grSim_Commands.pb.h"
-#include "grSim_Replacement.pb.h"
 
-#include "Qts/Qts.h"
+#include "Sender.h"
 
 using namespace std;
 
 int main(int argc, char** argv){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    QUdpSocket udpsocket;
-    quint16 _port = 20011;
-    QHostAddress _addr("127.0.0.1");
+    Sender sender;
 
 	grSim_Packet packet;
     bool yellow = false;
@@ -37,10 +32,8 @@ int main(int argc, char** argv){
     command->set_kickspeedz(0);
     command->set_spinner(false);
 
-    QByteArray dgram;
-    dgram.resize(packet.ByteSize());
-    packet.SerializeToArray(dgram.data(), dgram.size());
-    udpsocket.writeDatagram(dgram, _addr, _port);
+    sender.setPacket(packet);
+    sender.send2grSim();
 	
 	return 0;
 }
