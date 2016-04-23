@@ -2,13 +2,14 @@
 #include <google/protobuf/text_format.h>
 
 #include "Sender.h"
+#include "Receiver.h"
 
 using namespace std;
 
 int main(int argc, char** argv){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    Sender sender;
+    /*Sender sender;
 
 	grSim_Packet packet;
     bool yellow = false;
@@ -33,7 +34,9 @@ int main(int argc, char** argv){
     command->set_spinner(false);
 
     sender.setPacket(packet);
-    sender.send2grSim();
+    sender.send2grSim();*/
+    Receiver receiver("224.5.23.2", 10020);
+    receiver.receiveFromgrSim();
 	
 	return 0;
 }

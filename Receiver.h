@@ -21,11 +21,12 @@ private:
     QByteArray dgram;
     
     // grSim info
+    SSL_WrapperPacket packet;
 public:
-	Receiver(string ip = "224.5.23..2", int port = 10020);
+	Receiver(string ip = "224.5.23.2", int port = 30011);
 
 	void receiveFromgrSim();
-	void getState();
+	SSL_WrapperPacket getFrame();
 };
 
 #endif
