@@ -1,7 +1,7 @@
 CCX = g++ -std=c++11 -w
 
-INCLUDES = -IProtos -I/usr/include/qt4
-LIBRARIES = `pkg-config --cflags --libs protobuf` -lpthread -lQtNetwork -lQtCore -lQtGui -w
+INCLUDES = -Iprotos -I/usr/include/qt4
+LIBRARIES = `pkg-config --cflags --libs protobuf` -lpthread -lQtNetwork -lQtCore -w
 
 SRC := $(shell find -name '*.cpp')
 FILE_NAMES_SRC = $(SRC:.cpp=.o)
@@ -19,10 +19,10 @@ EXEC = COM
 	@$(CCX) $(INCLUDES) $(LIBRARIES) -Wall -Wformat -c -o $@ $< -w
 
 all: message $(EXEC)
-	@echo Terminado . . .
+	@echo Done ...
 	
 message:
-	@echo Compilando . . .
+	@echo Compiling grSimCOM ...
 
 run:
 	./COM
@@ -34,5 +34,5 @@ clean:
 	rm $(EXEC) $(FILE_NAMES_SRC) $(FILE_NAMES_PROTOS)
 
 proto:
-	cd Protos/ && make -f protos.make
+	cd protos && make -f protos.make
 

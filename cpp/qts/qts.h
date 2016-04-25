@@ -3,6 +3,5 @@
 
 #include "QtNetwork.h"
 #include "QtCore.h"
-#include "QtGui.h"
 
-#endif
+#endif // _QTS_H_

@@ -1,23 +1,25 @@
 #include "iostream"
-#include <google/protobuf/text_format.h>
-
-#include "Sender.h"
-#include "Receiver.h"
+#include "net.h"
 
 using namespace std;
 
 int main(int argc, char** argv){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    /*Sender sender;
+    Net net;
+    grSim_Packet packet_grSim;
 
-	grSim_Packet packet;
+    
+    net.setIpPortSend();        // with default values
+    net.setIpPortReceive();     // with default values
+
+	
     bool yellow = false;
 
-    packet.mutable_commands()->set_isteamyellow(yellow);
-    packet.mutable_commands()->set_timestamp(0.0);
+    packet_grSim.mutable_commands()->set_isteamyellow(yellow);
+    packet_grSim.mutable_commands()->set_timestamp(0.0);
 
-    grSim_Robot_Command* command = packet.mutable_commands()->add_robot_commands();
+    grSim_Robot_Command* command = packet_grSim.mutable_commands()->add_robot_commands();
     command->set_id(0);
 
     command->set_wheelsspeed(0);
@@ -33,11 +35,13 @@ int main(int argc, char** argv){
     command->set_kickspeedz(0);
     command->set_spinner(false);
 
-    sender.setPacket(packet);
-    sender.send2grSim();*/
+    net.sendPacket(packet_grSim);
     
-    Receiver receiver("224.5.23.2", 10002);
-    receiver.receiveFromgrSim();
+    while(1){
+        if(net.hasNewPacket()){
+            net.receivePacket();
+        }
+    }
 	
 	return 0;
 }

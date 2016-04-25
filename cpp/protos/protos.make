@@ -1,5 +1,6 @@
 all:	
 	@echo Protos ...
+
 	@protoc -I=. --cpp_out=. grSim_Commands.proto
 	@protoc -I=. --cpp_out=. grSim_Replacement.proto
 	@protoc -I=. --cpp_out=. grSim_Packet.proto
