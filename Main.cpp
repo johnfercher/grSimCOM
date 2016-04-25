@@ -35,7 +35,8 @@ int main(int argc, char** argv){
 
     sender.setPacket(packet);
     sender.send2grSim();*/
-    Receiver receiver("224.5.23.2", 10020);
+    
+    Receiver receiver("224.5.23.2", 10002);
     receiver.receiveFromgrSim();
 	
 	return 0;

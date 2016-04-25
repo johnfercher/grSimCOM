@@ -7,7 +7,10 @@
 #include "messages_robocup_ssl_wrapper.pb.h"
 #include "referee.pb.h"
 
+#include <google/protobuf/text_format.h>
+
 #include "iostream"
+#include "unistd.h"
 #include "Qts/Qts.h"
 
 using namespace std;

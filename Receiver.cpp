@@ -7,47 +7,21 @@ Receiver::Receiver(string ip, int port){
 }
 
 void Receiver::receiveFromgrSim(){
-	//udpsocket.connectToHost(*_addr, _port);
+	udpsocket.bind(QHostAddress("0.0.0.0"), _port, QUdpSocket::ShareAddress);
+    udpsocket.joinMulticastGroup(*_addr);
 
-	if(udpsocket.bind(*_addr, _port)){
-		cout << "OK" << endl;
-	}else{
-		cout << "!OK" << endl;
-	}
+    usleep(1000000);
 
-	/*udpsocket.waitForConnected(1000);
-
-	if (udpsocket.state() == QUdpSocket::ConnectedState){
-		cout << "ON" << endl;
-	}else{
-		cout << "!ON" << endl;
-	}
-	
-
-	while (udpsocket.state() == QUdpSocket::ConnectedState){
-		QByteArray datagram;
-        datagram.resize(packet.ByteSize());
-        QHostAddress sender;
-        quint16 senderPort;
-
-        udpsocket.readDatagram(datagram.data(), datagram.size(), _addr, &_port);
-
-        cout << "conectado" << endl;
-	}*/
-        /*QByteArray datagram;
+    while (udpsocket.hasPendingDatagrams()) {
+        QByteArray datagram;
         datagram.resize(udpsocket.pendingDatagramSize());
-        QHostAddress sender;
-        quint16 senderPort;
+        udpsocket.readDatagram(datagram.data(), datagram.size());
+        packet.ParseFromArray(datagram.data(), datagram.size());
 
-        udpsocket.readDatagram(datagram.data(), datagram.size(), _addr, &_port);
-
-        //processTheDatagram(datagram);	
-        cout << "recebeu" << endl;
+        string text_str;
+		google::protobuf::TextFormat::PrintToString(packet, &text_str);
+		cout << text_str << endl;
     }
-
-    cout << "saiu" << endl;*/
-    /*
-    udpsocket.readDatagram(dgram.data(), dgram.size(), *_addr, _port);*/
 }
 
 SSL_WrapperPacket Receiver::getFrame(){
