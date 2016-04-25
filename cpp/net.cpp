@@ -30,11 +30,15 @@ SSL_WrapperPacket Net::receivePacket(){
     udpsocketReceive.readDatagram(datagramReceive.data(), datagramReceive.size());
     packet.ParseFromArray(datagramReceive.data(), datagramReceive.size());
 
-    // debug
+    SSL_DetectionRobot robot;
+
+    robot = packet.detection().robots_blue(0);
+    cout << robot.orientation() << endl;
+
+    // debug all
     /*string text_str;
     google::protobuf::TextFormat::PrintToString(packet, &text_str);
     cout << text_str << endl;*/
-    
 
     return packet;
 }
